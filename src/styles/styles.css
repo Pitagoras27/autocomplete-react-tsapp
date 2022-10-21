@@ -84,7 +84,6 @@ ul.autocomplete-container {
   min-width: 320px;
   margin: 0;
   box-sizing: border-box;
-  max-height: 280px;
   overflow-y: auto;
   z-index: 1;
   background-color: #333;

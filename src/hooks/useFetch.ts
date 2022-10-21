@@ -10,9 +10,8 @@ export const useFetch = () => {
     const getContriesData = async () => {
       setLoading(true);
       try {
-        const getData = await fetch('https://countriesnow.space/api/v0.1/countrie');
+        const getData = await fetch('https://countriesnow.space/api/v0.1/countries');
         const { data } = await getData.json();
-        
         setData(formatData(data));
         setLoading(false);
         

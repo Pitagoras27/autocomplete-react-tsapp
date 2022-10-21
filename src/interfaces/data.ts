@@ -1,4 +1,6 @@
-export interface Country{
+export interface Country {
+  iso2 ?: string;
+  cities ?: string;
   iso3: string;
   country: string;
 }

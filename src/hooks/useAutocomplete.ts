@@ -8,13 +8,13 @@ export const useAutocomplete = <T>(initialState: PredictibleSelector) => {
 
     const onTextChanged = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
-        let suggestions = [];
+        let filterSuggestions: any = [];
         if (value.length > 0) {
             const regex = new RegExp(`^${value}`, "i");
-            suggestions = data.sort().filter((v: Country) => regex.test(v.country));
+            filterSuggestions = data.sort().filter((v: Country) => regex.test(v.country));
         }
         setIsComponentVisible(true);
-        setSearch({ suggestions, text: value });
+        setSearch({ suggestions: filterSuggestions, text: value });
     };
 
     const suggestionSelected = (value: Country) => {

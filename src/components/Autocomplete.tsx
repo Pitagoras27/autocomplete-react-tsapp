@@ -3,6 +3,7 @@ import { useKeyPress, useAutocomplete } from '../hooks';
 import { Data, PredictibleSelector } from '../interfaces';
 import { generateId } from "../helpers"
 import { ItemSuggestion } from './';
+import { Country } from '../interfaces/data';
 export interface CountryApi {
     iso2:    string;
     iso3:    string;
@@ -15,6 +16,7 @@ export const Autocomplete: FC<Data> = ({ data }) => {
     const upPress = useKeyPress("ArrowUp");
     const enterPress = useKeyPress("Enter");
     const exit = useKeyPress("Escape");
+    const backspace = useKeyPress("Backspace");
     const [cursor, setCursor] = useState(0);
 
     const {
@@ -30,12 +32,17 @@ export const Autocomplete: FC<Data> = ({ data }) => {
         text: "",
         suggestions: []
     });
-
     useEffect(() => {
-        if (results.length && downPress) {
-            setCursor(prevState => prevState < results.length - 1 ? prevState + 1 : prevState);
+        if ((results.length && downPress) || backspace) {
+            setCursor(prevState => {
+                // ? This validation is to recalculate index of filtered results when user use the backspace key
+                if( results.length === 1 || backspace) {
+                    return 0;
+                }
+                return prevState < results.length - 1 ? prevState + 1 : prevState;
+            })
         }
-    }, [downPress]);
+    }, [downPress, results, backspace]);
     
     useEffect(() => {
         if (results.length && exit) {
@@ -51,9 +58,9 @@ export const Autocomplete: FC<Data> = ({ data }) => {
 
     useEffect(() => {
         if (results.length && enterPress) {
-            console.log('results', results)
+            const result = Object.values(results[cursor])[1]
             setSearch({
-                text: Object.values(results[cursor])[2],
+                text: result,
                 suggestions: []
             })
         }
