@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { countries } from "../data/countries";
+import { formatData } from '../helpers';
 
 export const useFetch = () => {
   const [loading, setLoading] = useState(false);
@@ -9,10 +10,10 @@ export const useFetch = () => {
     const getContriesData = async () => {
       setLoading(true);
       try {
-        const getData = await fetch('https://countriesnow.space/api/v0.1/countries');
+        const getData = await fetch('https://countriesnow.space/api/v0.1/countrie');
         const { data } = await getData.json();
-
-        setData(data);
+        
+        setData(formatData(data));
         setLoading(false);
         
       } catch (error) {

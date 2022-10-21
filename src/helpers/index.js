@@ -4,3 +4,12 @@ export const generateId = () => {
   const result = random + date
   return result.substring(3, result.length);
 }
+
+export const formatData = (data) => {
+  return data.map(country => {
+    delete country.iso2
+    delete country.cities
+
+    return country;
+  });
+}

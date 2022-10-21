@@ -1,9 +1,13 @@
-import { Autocomplete } from "./components/Autocomplete";
+import { Autocomplete, Loader } from "./components";
 import { useFetch } from "./hooks/useFetch";
 import "./styles/styles.css";
 
 const App = () =>{
     const { loading, data } = useFetch();
+
+    if (loading) {
+        return <Loader className="theme" />
+    }
 
     return (
         <div className="container">

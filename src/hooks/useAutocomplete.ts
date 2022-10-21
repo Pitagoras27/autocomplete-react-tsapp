@@ -1,7 +1,7 @@
 import { ChangeEvent, useState } from 'react';
 import { Country, PredictibleSelector } from './../interfaces';
 
-export default function useAutoComplete<T>(initialState: PredictibleSelector) {
+export const useAutocomplete = <T>(initialState: PredictibleSelector) => {
     const { data, text, suggestions } = initialState;
     const [search, setSearch] = useState({ text, suggestions });
     const [isComponentVisible, setIsComponentVisible] = useState(true);
@@ -34,6 +34,7 @@ export default function useAutoComplete<T>(initialState: PredictibleSelector) {
         isComponentVisible,
         setSearch,
         onTextChanged,
-        suggestionSelected
+        suggestionSelected,
+        setIsComponentVisible
     }
 }
